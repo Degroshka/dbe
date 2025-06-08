@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  postgres:
+    build: .
+    container_name: visualization_postgres
+    environment:
+      POSTGRES_DB: visualization_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-scripts/postgres:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+
+  mysql:
+    image: mysql:8.0
+    container_name: visualization_mysql
+    environment:
+      MYSQL_DATABASE: visualization_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init-scripts/mysql:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+
+volumes:
+  postgres_data:
+  mysql_data: 
