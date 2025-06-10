@@ -1,4 +1,7 @@
--- Create database and use it
+-- Create database
+CREATE DATABASE IF NOT EXISTS visualization_db;
+
+-- Use the database
 USE visualization_db;
 
 -- Create tables
